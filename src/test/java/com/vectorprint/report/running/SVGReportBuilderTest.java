@@ -26,7 +26,7 @@ package com.vectorprint.report.running;
  */
 
 import com.vectorprint.VectorPrintException;
-import com.vectorprint.configuration.VectorPrintProperties;
+import com.vectorprint.configuration.Settings;
 import com.vectorprint.configuration.decoration.FindableProperties;
 import com.vectorprint.configuration.parser.ParseException;
 import static com.vectorprint.report.ReportConstants.*;
@@ -57,7 +57,7 @@ public class SVGReportBuilderTest {
 
    @BeforeClass
    public static void setUpClass() throws IOException, VectorPrintException {
-      Logger.getLogger(VectorPrintProperties.class.getName()).setLevel(Level.FINE);
+      Logger.getLogger(Settings.class.getName()).setLevel(Level.FINE);
    }
 
    private static void init(boolean allowEmpties) throws IOException, VectorPrintException, ParseException {
