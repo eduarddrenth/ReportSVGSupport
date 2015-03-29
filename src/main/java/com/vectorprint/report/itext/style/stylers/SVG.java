@@ -53,8 +53,8 @@ public class SVG extends com.vectorprint.report.itext.style.stylers.Image<String
    }
 
    private void initParams() {
-      addParameter(new FloatParameter(WIDTH, "width of the svg").setDefault(50f));
-      addParameter(new FloatParameter(HEIGHT, "width of the svg").setDefault(50f));
+      addParameter(new FloatParameter(WIDTH, "width of the svg").setDefault(50f),SVG.class);
+      addParameter(new FloatParameter(HEIGHT, "width of the svg").setDefault(50f),SVG.class);
    }
 
    public SVG(ImageLoader imageLoader, LayerManager layerManager,Document document, PdfWriter writer, EnhancedMap settings) throws VectorPrintException {
