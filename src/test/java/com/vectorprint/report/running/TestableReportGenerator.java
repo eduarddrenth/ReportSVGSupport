@@ -35,6 +35,8 @@ import com.vectorprint.report.data.ReportDataHolder;
 import com.vectorprint.report.itext.BaseReportGenerator;
 import com.vectorprint.report.itext.DefaultElementProducer;
 import com.vectorprint.report.itext.EventHelper;
+import com.vectorprint.report.itext.style.StyleHelper;
+import com.vectorprint.report.itext.style.stylers.SVG;
 
 /**
  *
@@ -55,8 +57,11 @@ public class TestableReportGenerator extends BaseReportGenerator<ReportDataHolde
       try {
          // add and style a SVG from a String, the string will override a svg string or url in the setup
          
-//         createAndAddElement("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"200\" height=\"200\" version=\"1.1\"><defs><filter id=\"test\" filterUnits=\"objectBoundingBox\" x=\"0\" y=\"0\" width=\"1.5\" height=\"4\"><feOffset result=\"Off1\" dx=\"15\" dy=\"20\" /><feFlood style=\"flood-color:#ff0000;flood-opacity:0.8\" /><feComposite in2=\"Off1\" operator=\"in\" result=\"C1\" /><feOffset in=\"SourceGraphic\" result=\"Off2\" dx=\"30\" dy=\"40\" /><feFlood style=\"flood-color:#ff0000;flood-opacity:0.4\" /><feComposite in2=\"Off2\" operator=\"in\" result=\"C2\" /><feMerge><feMergeNode in=\"C2\" /><feMergeNode in=\"C1\" /><feMergeNode in=\"SourceGraphic\" /></feMerge></filter></defs><text x=\"30\" y=\"100\" style=\"font:36px verdana bold;fill:blue;filter:url(#test)\">This is some text!</text></svg>", getStylers("svg"), Image.class);
+         createAndAddElement("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"200\" height=\"200\" version=\"1.1\"><defs><filter id=\"test\" filterUnits=\"objectBoundingBox\" x=\"0\" y=\"0\" width=\"1.5\" height=\"4\"><feOffset result=\"Off1\" dx=\"15\" dy=\"20\" /><feFlood style=\"flood-color:#ff0000;flood-opacity:0.8\" /><feComposite in2=\"Off1\" operator=\"in\" result=\"C1\" /><feOffset in=\"SourceGraphic\" result=\"Off2\" dx=\"30\" dy=\"40\" /><feFlood style=\"flood-color:#ff0000;flood-opacity:0.4\" /><feComposite in2=\"Off2\" operator=\"in\" result=\"C2\" /><feMerge><feMergeNode in=\"C2\" /><feMergeNode in=\"C1\" /><feMergeNode in=\"SourceGraphic\" /></feMerge></filter></defs><text x=\"30\" y=\"100\" style=\"font:36px verdana bold;fill:blue;filter:url(#test)\">This is some text!</text></svg>", getStylers("svg"), Image.class);
 
+         if (!getSettings().containsKey("SVG.data.set_value")) {
+            StyleHelper.getStylers(getStylers("svg"),SVG.class).get(0).setData(null);
+         }
          // add and style a SVG directly from setup
          
          createAndAddElement(null, getStylers("svg"), Image.class);
