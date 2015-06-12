@@ -28,13 +28,15 @@ package com.vectorprint.report.running;
 import com.vectorprint.VectorPrintException;
 import com.vectorprint.configuration.Settings;
 import com.vectorprint.configuration.decoration.FindableProperties;
-import com.vectorprint.configuration.parser.ParseException;
+import com.vectorprint.configuration.jaxb.SettingsFromJAXB;
+import com.vectorprint.configuration.jaxb.SettingsXMLHelper;
 import static com.vectorprint.report.ReportConstants.*;
-import com.vectorprint.report.data.ReportDataHolder;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.xml.bind.JAXBException;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -48,7 +50,7 @@ import static org.junit.Assert.*;
  */
 public class SVGReportBuilderTest {
 
-   private static ThreadSafeReportBuilder<ReportDataHolder> instance;
+   private static ReportRunner instance;
 //   private static 
    public static final String TARGET = "target" + File.separator;
 
@@ -60,10 +62,11 @@ public class SVGReportBuilderTest {
       Logger.getLogger(Settings.class.getName()).setLevel(Level.FINE);
    }
 
-   private static void init(boolean allowEmpties) throws IOException, VectorPrintException, ParseException {
+   private static void init(boolean allowEmpties) throws IOException, VectorPrintException, JAXBException {
       FindableProperties.clearStaticReferences();
-      instance = new ThreadSafeReportBuilder("src/test/resources/config",
-          ThreadSafeReportBuilder.DEFAULTPROPERTYURLS.toArray(new String[ThreadSafeReportBuilder.DEFAULTPROPERTYURLS.size()]), allowEmpties, true);
+      instance = allowEmpties ?
+          new ReportRunner(new SettingsFromJAXB().fromJaxb(SettingsXMLHelper.fromXML(new FileReader("src/test/resources/settings.xml")))) :
+          new ReportRunner(new SettingsFromJAXB().fromJaxb(SettingsXMLHelper.fromXML(new FileReader("src/test/resources/settingsNoEmpties.xml"))));
    }
 
    @AfterClass
@@ -71,7 +74,7 @@ public class SVGReportBuilderTest {
    }
 
    @Before
-   public void setUp() throws IOException, VectorPrintException, ParseException {
+   public void setUp() throws IOException, VectorPrintException, JAXBException {
       init(true);
       TestableReportGenerator.setDidCreate(false);
       instance.getSettings().remove(VERSION);
