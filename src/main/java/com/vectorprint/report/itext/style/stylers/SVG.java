@@ -35,9 +35,8 @@ import com.vectorprint.configuration.EnhancedMap;
 import com.vectorprint.report.itext.ImageLoader;
 import com.vectorprint.report.itext.LayerManager;
 import com.vectorprint.report.itext.style.parameters.FloatParameter;
-
-import static com.vectorprint.report.itext.style.stylers.DocumentSettings.WIDTH;
 import static com.vectorprint.report.itext.style.stylers.DocumentSettings.HEIGHT;
+import static com.vectorprint.report.itext.style.stylers.DocumentSettings.WIDTH;
 import com.vectorprint.report.svg.BatikHelper;
 import java.io.IOException;
 
@@ -92,6 +91,11 @@ public class SVG extends com.vectorprint.report.itext.style.stylers.Image<String
 
    public void setHeight(float height) {
       setValue(HEIGHT, height);
+   }
+
+   @Override
+   public String getHelp() {
+      return "draw a SVG image." + " " + super.getHelp();
    }
 
 
