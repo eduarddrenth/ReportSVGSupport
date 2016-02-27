@@ -44,16 +44,12 @@ import com.vectorprint.report.itext.style.stylers.SVG;
  */
 public class TestableReportGenerator extends BaseReportGenerator<ReportDataHolder> {
 
-   private static boolean didCreate = false;
-
    public TestableReportGenerator() throws VectorPrintException {
       super(new EventHelper<ReportDataHolder>(), new DefaultElementProducer());
-      didCreate = false;
    }
 
    @Override
    protected void createReportBody(Document document, ReportDataHolder data, com.itextpdf.text.pdf.PdfWriter writer) throws DocumentException, VectorPrintException {
-      didCreate = true;
       try {
          // add and style a SVG from a String, the string will override a svg string or url in the setup
          
@@ -88,15 +84,5 @@ public class TestableReportGenerator extends BaseReportGenerator<ReportDataHolde
       }
       return true;
    }
-
-
-   public static boolean isDidCreate() {
-      return didCreate;
-   }
-
-   public static void setDidCreate(boolean didCreate) {
-      TestableReportGenerator.didCreate = didCreate;
-   }
-
 
 }

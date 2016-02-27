@@ -25,6 +25,7 @@ package com.vectorprint.report.running;
  * #L%
  */
 
+import com.itextpdf.text.pdf.PdfReader;
 import com.vectorprint.VectorPrintException;
 import com.vectorprint.configuration.Settings;
 import com.vectorprint.configuration.decoration.FindableProperties;
@@ -37,12 +38,10 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
-import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -76,31 +75,30 @@ public class SVGReportBuilderTest {
    @Before
    public void setUp() throws IOException, VectorPrintException, JAXBException {
       init(true);
-      TestableReportGenerator.setDidCreate(false);
       instance.getSettings().remove(VERSION);
       instance.getSettings().remove(HELP);
    }
 
-   @After
-   public void tearDown() {
+   private void checkPdf(String path) throws IOException {
+      new PdfReader(path);
    }
 
    @Test
    public void testSVGOverrideData() throws Exception {
       instance.buildReport(new String[]{"output="+ TARGET+"testSVGOverrideData.pdf\nSVG.data.set_value=" + "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"200\" height=\"200\" version=\"1.1\"><defs><filter id=\"test\" filterUnits=\"objectBoundingBox\" x=\"0\" y=\"0\" width=\"1.5\" height=\"4\"><feOffset result=\"Off1\" dx=\"15\" dy=\"20\" /><feFlood style=\"flood-color:#ff0000\\;flood-opacity:0.8\" /><feComposite in2=\"Off1\" operator=\"in\" result=\"C1\" /><feOffset in=\"SourceGraphic\" result=\"Off2\" dx=\"30\" dy=\"40\" /><feFlood style=\"flood-color:#ff0000\\;flood-opacity:0.4\" /><feComposite in2=\"Off2\" operator=\"in\" result=\"C2\" /><feMerge><feMergeNode in=\"C2\" /><feMergeNode in=\"C1\" /><feMergeNode in=\"SourceGraphic\" /></feMerge></filter></defs><text x=\"30\" y=\"100\" style=\"font:36px verdana bold\\;fill:blue\\;filter:url(#test)\">Overridden text!</text></svg>"});
-      assertTrue(TestableReportGenerator.isDidCreate());
+      checkPdf(TARGET+"testSVGOverrideData.pdf");
    }
 
    @Test
    public void testSVG() throws Exception {
       instance.buildReport(new String[]{"output="+ TARGET+"testSVG.pdf"});
-      assertTrue(TestableReportGenerator.isDidCreate());
+      checkPdf(TARGET+"testSVG.pdf");
    }
 
    @Test
    public void testSVGDebug() throws Exception {
       instance.buildReport(new String[]{"output="+ TARGET+"testSVGDebug.pdf\ndebug=true"});
-      assertTrue(TestableReportGenerator.isDidCreate());
+      checkPdf(TARGET+"testSVGDebug.pdf");
    }
 
 }
