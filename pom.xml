@@ -7,7 +7,7 @@
    <groupId>com.vectorprint</groupId>
    <version>8.11-SNAPSHOT</version>
 
-   <url>http://vectorprintreport.java.net</url>
+   <url>https://github.com/eduarddrenth/ReportSVGSupport/wiki</url>
 
    <description>SVG support for creating pdf documents in a configurable way using iText</description>
 
@@ -49,10 +49,15 @@
    </organization>
 
    <scm>
-      <url>https://java.net/projects/vectorprintreport/sources/subversion/show/trunk/ReportSVGSupport</url>
-      <connection>scm:svn:https://svn.java.net/svn/vectorprintreport~subversion/trunk/ReportSVGSupport</connection>
-      <developerConnection>scm:svn:https://svn.java.net/svn/vectorprintreport~subversion/trunk/ReportSVGSupport</developerConnection>
+      <url>https://github.com/eduarddrenth/ReportSVGSupport</url>
+      <connection>scm:git:https://github.com/eduarddrenth/ReportSVGSupport</connection>
+      <developerConnection>scm:git:https://github.com/eduarddrenth/ReportSVGSupport</developerConnection>
    </scm>
+
+   <issueManagement>
+      <system>github</system>
+      <url>https://github.com/eduarddrenth/ReportSVGSupport/issues</url>
+   </issueManagement>
 
    <build>
       <plugins>
