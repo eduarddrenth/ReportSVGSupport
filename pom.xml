@@ -87,7 +87,7 @@
       <dependency>
          <groupId>${project.groupId}</groupId>
          <artifactId>ConfigurableReports</artifactId>
-         <version>9.0</version>
+         <version>9.1</version>
       </dependency>
       <dependency>
          <groupId>xerces</groupId>
